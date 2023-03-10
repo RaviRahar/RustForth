@@ -1,0 +1,7 @@
+/target
+/src/*.forth
+/src/*.asm
+/src/*.o
+/src/*.rf
+!/src/*.rs
+
