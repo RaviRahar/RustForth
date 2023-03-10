@@ -8,11 +8,11 @@ Forth written in python inspired from tsoding's [porth](https://gitlab.com/tsodi
 - [x] - (Minus)
 - [x] = (Equal)
 - [x] . (Dump)
-- [ ] > (GreaterThan)
+- [x] dup (Duplicate)
+- [x] > (GreaterThan)
 - [ ] if
 - [ ] end
 - [ ] else
-- [ ] dup
 - [ ] while
 - [ ] do
 
