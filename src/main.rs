@@ -420,8 +420,18 @@ fn compile_program(program: Vec<Result<Token, Box<dyn Error>>>, output_filename:
                     out.write_to_file("    pop rdi\n");
                     out.write_to_file("    call dump\n");
                 },
-                Word::OpDup => (),
-                Word::OpGt => (),
+                Word::OpDup => {
+                    out.write_to_file("    ;; -- dup -- \n");
+                    out.write_to_file("    pop rax\n");
+                    out.write_to_file("    push rax\n");
+                    out.write_to_file("    push rax\n");
+                },
+                Word::OpGt => {
+                    out.write_to_file("    ;; -- dup -- \n");
+                    out.write_to_file("    pop rax\n");
+                    out.write_to_file("    push rax\n");
+                    out.write_to_file("    push rax\n");
+                },
                 Word::OpIf => (),
                 Word::OpEnd => (),
                 Word::OpElse => (),
