@@ -286,8 +286,8 @@ fn crossreference_blocks(program: Vec<Token>) -> Vec<Token> {
             }
             Word::OpElse(_end_idx) => {
                 let if_idx = handle_stack_empty(stack.pop(), token);
-                assert_eq!(program[if_idx].word, Word::OpIf(None));
-                out_program[if_idx].word = Word::OpIf(Some(token_idx + 1));
+                assert_eq!(program[if_idx].word, iff(None));
+                out_program[if_idx].word = iff(Some(token_idx + 1));
                 stack.push(token_idx);
 
                 out_program.push(Token { ..(*token).clone() });
@@ -297,21 +297,21 @@ fn crossreference_blocks(program: Vec<Token>) -> Vec<Token> {
                 match program[block_idx].word {
                     Word::OpIf(_end_idx) => {
                         out_program[block_idx] = Token {
-                            word: Word::OpIf(Some(token_idx)),
+                            word: iff(Some(token_idx)),
                             ..(*token).clone()
                         };
                         out_program.push(Token {
-                            word: Word::OpEnd(Some(token_idx + 1)),
+                            word: end(Some(token_idx + 1)),
                             ..(*token).clone()
                         });
                     }
                     Word::OpElse(_end_idx) => {
                         out_program[block_idx] = Token {
-                            word: Word::OpElse(Some(token_idx)),
+                            word: elze(Some(token_idx)),
                             ..(*token).clone()
                         };
                         out_program.push(Token {
-                            word: Word::OpEnd(Some(token_idx + 1)),
+                            word: end(Some(token_idx + 1)),
                             ..(*token).clone()
                         });
                     }
@@ -319,11 +319,11 @@ fn crossreference_blocks(program: Vec<Token>) -> Vec<Token> {
                         if let Word::OpDo(Some(wile_idx)) = out_program[block_idx].word {
                             assert_eq!(out_program[wile_idx].word, Word::OpWhile);
                             out_program[block_idx] = Token {
-                                word: Word::OpDo(Some(token_idx + 1)),
+                                word: doo(Some(token_idx + 1)),
                                 ..(*token).clone()
                             };
                             out_program.push(Token {
-                                word: Word::OpEnd(Some(wile_idx)),
+                                word: end(Some(wile_idx)),
                                 ..(*token).clone()
                             });
                         };
@@ -344,7 +344,7 @@ fn crossreference_blocks(program: Vec<Token>) -> Vec<Token> {
                 stack.push(token_idx);
 
                 out_program.push(Token {
-                    word: Word::OpDo(wile_end_idx),
+                    word: doo(wile_end_idx),
                     ..(*token).clone()
                 });
             }
